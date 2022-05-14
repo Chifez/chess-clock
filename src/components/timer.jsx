@@ -1,51 +1,64 @@
-import React,{ useState } from 'react'
+import React from 'react'
+import {clock} from './clock.js'
 
 const Timer = (props) => {
-  const [enable, setEnable] = useState(false);
-  const [bgColor, setBgColor] = useState("gray");
-  const [onStartClick, setOnStartClick] = useState(false);
+    const{ className, player, id, bgColor, setBgColor, enable, setEnable, active, setActive, previousclick,setPreviousClick } = props;
+    const{time} = clock;
 
-      const{className} = props;
+
+    const handleToggle = (e) =>{
+      const id = e.target.id
+      if (id === "1" && previousclick === "2"){
+        setActive("2")
+        setPreviousClick("1")
+        // console.log(id)
+      }else if (id ==="2" && previousclick ==="1"){
+        setActive("1")
+        setPreviousClick("2")
+        // console.log(id)
+      }else if((id === "1" && previousclick === "1")||(id ==="2" && previousclick ==="2")){
+        setActive(previousclick)
+        setPreviousClick(previousclick)
+      }
+      console.log(active)
+    }
     
-      
-      const handleStart = (e) =>{
-        console.log(e)
-        console.log(e.target.className)
-        console.log(e.type)
-        if ((e.target.className==="timer1" || e.target.className==="timer2") && e.type === "click"){
-          setOnStartClick(true)
-        }
-        
-      // setEnable(!enable)
-      // setOnStart(!onStart)
-    }
-
-    const handleToggle =(e) =>{
-      if(onStartClick){
-        if ((enable) && e.type === "click"){
-          setEnable(!enable)
-      }
-      }
-    }
-
+    
     const handleClick = (e) => {
-        handleStart(e);
-        handleToggle(e)
-        const color = (enable) ? "green" : "gray";
-        setBgColor(color);
-        setEnable(!enable);
-        // return
-    }
-  
+      handleToggle(e)
+      const color = (enable === true) ? "green" : "gray";
+      // if (id === active){
+        setBgColor(color)
+        setEnable(!enable)
+        //   console.log(enable)
+        //   console.log(id)
+        // } else {
+        //   setBgColor("green")
+        // }
+         }
+      
+    
   return (
-     
-      <div onClick={(e) => {handleClick(e)}} style ={{backgroundColor:`${bgColor}`}}
-      className={className}>
-   <h3>10</h3>
-   <h3>:</h3>
-   <h3>00</h3>
-   </div> 
-  )
-}
+      <div>        
+        {time.map((timer) => 
+          <div key={id}  id={id} className={className} onClick={(e,id) => {handleClick(e,id)}} 
+          style ={{backgroundColor:`${bgColor}`}} >
+            <h2>{player}</h2>
+            <h3>{timer.min}</h3>
+            <h3>:</h3>
+            <h3>{timer.sec}</h3>
+          </div>
+        )}
+
+      </div>
+
+
+
+    )
+  }
+
+  //   <div onClick={(e,className) => {handleClick(e,className)}} style ={{backgroundColor:`${bgColor}`}} >
+   
+  //  </div> 
 
 export default Timer

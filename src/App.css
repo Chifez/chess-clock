@@ -55,3 +55,8 @@ background-color:gray;
   height:50px;
   margin:2rem;
 }
+:where(.timer1, .timer2) h2{
+  position: absolute;
+  transform: translateY(10rem);
+  color: black;
+}
