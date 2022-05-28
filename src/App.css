@@ -55,10 +55,9 @@ background-color:gray;
   height:50px;
   margin:2rem;
 }
-/* :where(.timer1, .timer2) h3{
+:where(.timer1, .timer2) div{
   position: absolute;
-  display:flex; 
-  flex-direction: row;
-  transform: translateY(-10rem);
-  color: black;
-} */
+   display:flex; 
+  flex-direction: row; 
+  color:black;
+} 
